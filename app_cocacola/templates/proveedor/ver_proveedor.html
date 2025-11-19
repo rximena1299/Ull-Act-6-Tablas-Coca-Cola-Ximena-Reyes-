@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>Proveedores</h3>
+  <a href="{% url 'agregar_proveedor' %}" class="btn btn-primary mb-3">Agregar Proveedor</a>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Empresa</th>
+        <th>Contacto</th>
+        <th>Teléfono</th>
+        <th>Correo</th>
+        <th>País</th>
+        <th>Dirección</th>
+        <th>Tipo de Producto Suministrado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in proveedores %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.nombre_empresa }}</td>
+        <td>{{ p.contacto }}</td>
+        <td>{{ p.telefono }}</td>
+        <td>{{ p.correo }}</td>
+        <td>{{ p.pais }}</td>
+        <td>{{ p.direccion }}</td>
+        <td>{{ p.tipo_producto_suministro}}</td>
+        <td>
+          <a href="{% url 'actualizar_proveedor' p.id %}" class="btn btn-sm btn-warning">Editar</a>
+          <a href="{% url 'borrar_proveedor' p.id %}" class="btn btn-sm btn-danger">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7">No hay proveedores registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

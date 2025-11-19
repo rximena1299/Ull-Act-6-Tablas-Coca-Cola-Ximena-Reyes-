@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>Actualizar Venta</h3>
+  <form method="post" action="{% url 'realizar_actualizacion_venta' venta.id %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Empleado</label>
+      <select name="id_empleado" class="form-select" required>
+        {% for empleado in empleados %}
+        <option value="{{ empleado.id }}" {% if empleado.id == venta.id_empleado.id %}selected{% endif %}>
+          {{ empleado.nombre }} {{ empleado.apellido }} - {{ empleado.puesto }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Fecha de Venta</label>
+      <input type="date" name="fecha_venta" value="{{ venta.fecha_venta|date:'Y-m-d' }}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Cliente</label>
+      <select name="id_cliente" class="form-select" required>
+        {% for cliente in clientes %}
+        <option value="{{ cliente.id }}" {% if cliente.id == venta.id_cliente.id %}selected{% endif %}>
+          {{ cliente.nombre }} {{ cliente.apellido }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Producto</label>
+      <select name="id_producto" class="form-select" required>
+        {% for producto in productos %}
+        <option value="{{ producto.id }}" {% if producto.id == venta.id_producto.id %}selected{% endif %}>
+          {{ producto.nombre_producto }} - ${{ producto.precio_unitario }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Cantidad Vendida</label>
+      <input type="number" name="cantidad_vendida" value="{{ venta.cantidad_vendida }}" class="form-control" min="1" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Monto Total</label>
+      <input type="number" name="monto_total" value="{{ venta.monto_total }}" class="form-control" step="0.01" min="0" required>
+    </div>
+    <button class="btn btn-success" type="submit">Guardar cambios</button>
+    <a href="{% url 'ver_venta' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}

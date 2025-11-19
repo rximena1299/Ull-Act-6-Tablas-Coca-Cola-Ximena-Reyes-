@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>Eliminar de Flota de Producción</h3>
+  <p>¿Deseas eliminar <strong>{{ flota.nombre_transporte }}</strong> con placas <strong>{{ flota.placas }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'ver_flota' %}" class="btn btn-secondary">No, regresar</a>
+  </form>
+{% endblock %}

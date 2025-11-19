@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>Ventas Registradas</h3>
+  <a href="{% url 'agregar_venta' %}" class="btn btn-primary mb-3">Registrar Venta</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Empleado</th>
+        <th>Fecha Venta</th>
+        <th>Cliente</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Monto Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in ventas %}
+      <tr>
+        <td>{{ v.id }}</td>
+        <td>{{ v.id_empleado.nombre }} {{ v.id_empleado.apellido }}</td>
+        <td>{{ v.fecha_venta }}</td>
+        <td>{{ v.id_cliente.nombre }} {{ v.id_cliente.apellido }}</td>
+        <td>{{ v.id_producto.nombre_producto }}</td>
+        <td>{{ v.cantidad_vendida }}</td>
+        <td>${{ v.monto_total }}</td>
+        <td>
+          <a href="{% url 'actualizar_venta' v.id %}" class="btn btn-sm btn-warning">Editar</a>
+          <a href="{% url 'borrar_venta' v.id %}" class="btn btn-sm btn-danger">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8">No hay ventas registradas.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

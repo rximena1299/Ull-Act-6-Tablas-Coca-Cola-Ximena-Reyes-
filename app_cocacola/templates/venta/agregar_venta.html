@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>Registrar Venta</h3>
+  <form method="post" action="{% url 'agregar_venta' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Empleado</label>
+      <select name="id_empleado" class="form-select" required>
+        <option value="">Seleccionar empleado</option>
+        {% for empleado in empleados %}
+        <option value="{{ empleado.id }}">{{ empleado.nombre }} {{ empleado.apellido }} - {{ empleado.puesto }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Fecha de Venta</label>
+      <input type="date" name="fecha_venta" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Cliente</label>
+      <select name="id_cliente" class="form-select" required>
+        <option value="">Seleccionar cliente</option>
+        {% for cliente in clientes %}
+        <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Producto</label>
+      <select name="id_producto" class="form-select" required>
+        <option value="">Seleccionar producto</option>
+        {% for producto in productos %}
+        <option value="{{ producto.id }}">{{ producto.nombre_producto }} - ${{ producto.precio_unitario }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Cantidad Vendida</label>
+      <input type="number" name="cantidad_vendida" class="form-control" min="1" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Monto Total</label>
+      <input type="number" name="monto_total" class="form-control" step="0.01" min="0" required>
+    </div>
+    <button class="btn btn-success" type="submit">Registrar Venta</button>
+    <a href="{% url 'ver_venta' %}" class="btn btn-secondary">Volver</a>
+  </form>
+{% endblock %}

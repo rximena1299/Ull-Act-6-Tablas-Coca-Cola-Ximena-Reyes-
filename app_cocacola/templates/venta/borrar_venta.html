@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>Eliminar Venta</h3>
+  <p>¿Deseas eliminar la venta <strong>#{{ venta.id }}</strong> del {{ venta.fecha_venta }}?</p>
+  <p><strong>Empleado:</strong> {{ venta.id_empleado.nombre }} {{ venta.id_empleado.apellido }}</p>
+  <p><strong>Cliente:</strong> {{ venta.id_cliente.nombre }} {{ venta.id_cliente.apellido }}</p>
+  <p><strong>Producto:</strong> {{ venta.id_producto.nombre_producto }}</p>
+  <p><strong>Monto Total:</strong> ${{ venta.monto_total }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'ver_venta' %}" class="btn btn-secondary">No, regresar</a>
+  </form>
+{% endblock %}
